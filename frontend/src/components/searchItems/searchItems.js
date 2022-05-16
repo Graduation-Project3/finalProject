@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import { Redirect } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Link } from 'react-router-dom';
 import useStyle from './styles';
 import Nav from '../home/home-nav';
 import { SearchContext } from '../../contexts/searchItems';
@@ -46,7 +47,8 @@ export default SearchItem;
 
 
 
-const Item = ({ imageUrl, title, description }) => {
+const Item = ({ imageUrl, title, description, _id }) => {
+
     const classes = useStyle();
     return (
         <Card className={classes.card}>
@@ -64,11 +66,12 @@ const Item = ({ imageUrl, title, description }) => {
                 <Typography variant="body2" color="text.secondary">
                     {description}
                 </Typography>
+                <Link to = {`/product/${_id}`}>
+                    <Button style={{ backgroundColor: '#8D8DAA', color: 'white', margin: '1rem auto', display: 'block' }}>
+                    Details
+                </Button>
+                </Link>
             </CardContent>
-            <CardActions>
-                <Button size="small"></Button>
-            </CardActions>
-
         </Card>
     );
 };

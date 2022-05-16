@@ -19,23 +19,21 @@ const useStyle = makeStyles(() => {
 
 
         //home card styles
-        
+
         cards: {
-            top:'0px',
-            right:'0px',
-            bottom:'0px',
-            left:'0px',
-            //   padding: ' 3% 0',
+            width: '100%',
+            padding: ' 3% 0',
             backgroundColor: '#F7F5F2',
         },
         card: {
             maxWidth: '17rem',
+            margin: '1rem'
         },
         cardContainer: {
             display: 'grid',
             gridTemplateColumns: 'auto auto auto',
             gridTemplateRows: 'auto ',
-            rowGap: '3em',
+            gridAutoRows: '0',
             justifyContent: 'space-evenly',
         },
 

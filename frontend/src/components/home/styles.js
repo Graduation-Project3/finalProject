@@ -16,7 +16,12 @@ const useStyle = makeStyles(() => {
     mainColor: {
       color: ' #8D8DAA'
     },
-
+    cursor: {
+      color: ' #8D8DAA',
+      "&:hover": {
+        cursor: 'pointer'
+      }
+    },
     //navbar styles
     dis: {
       display: 'grid',
@@ -110,6 +115,7 @@ const useStyle = makeStyles(() => {
     },
     card:{
       maxWidth: '17rem',
+      margin:'1rem'
     },
     cardContainer: {
       display: 'grid',
@@ -125,7 +131,6 @@ const useStyle = makeStyles(() => {
       gridAutoRows: '0',
       justifyContent: 'space-evenly',
       gridAutoRows: 'auto',
-      rowGap: ' 5%',
     },
     cardButton: {
       margin: '5%',
@@ -252,7 +257,7 @@ const useStyle = makeStyles(() => {
         gridAutoRows: 'auto',
         justifyContent: 'space-evenly',
         gridAutoRows: 'auto',
-        rowGap: ' 5%',
+
       },
       card:{
         maxWidth: '10rem'

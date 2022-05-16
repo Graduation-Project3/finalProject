@@ -5,6 +5,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import { Redirect } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -43,7 +44,8 @@ export default CategoryItem;
 
 
 
-const Item = ({ imageUrl, title, description }) => {
+const Item = ({ imageUrl, title, description, _id }) => {
+
     const classes = useStyle();
     return (
         <Card className={classes.card}>
@@ -61,11 +63,12 @@ const Item = ({ imageUrl, title, description }) => {
                 <Typography variant="body2" color="text.secondary">
                     {description}
                 </Typography>
+                <Link to = {`/product/${_id}`}>
+                    <Button style={{ backgroundColor: '#8D8DAA', color: 'white', margin: '1rem auto', display: 'block' }}>
+                    Details
+                </Button>
+                </Link>
             </CardContent>
-            <CardActions>
-                <Button size="small"></Button>
-            </CardActions>
-
         </Card>
     );
 };

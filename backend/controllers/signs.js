@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/users");
+const emailvalidator = require("email-validator");
 const jwt = require('jsonwebtoken');
 exports.postSignUp = (req,res,next) =>{
     const { firstName, lastName, city, location, email, password, confirmPassword, phone } = req.body;
@@ -9,6 +10,15 @@ exports.postSignUp = (req,res,next) =>{
                 res.send("already the email use");
                 return;
             }
+            else if(!emailvalidator.validate(req.body.email)){
+              res.status(202).send("The email not validate");
+              return;
+          }
+          else if(!(password==confirmPassword)){
+            console.log("The password dose not match");
+            res.status(202).send("The password dose not match");
+            return;
+        }
             return bcrypt
                 .hash(password, 12)
                 .then(hashedPassword => {

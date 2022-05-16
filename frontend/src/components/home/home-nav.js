@@ -112,14 +112,11 @@ function Nav(props) {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <SearchIcon className={classes.mainColor} />
+                    <SearchIcon className={classes.cursor} onClick={()=>{searchContext.getItemsByTitle()}} />
                   </InputAdornment>
                 ),
               }}
             />
-            <button
-            onClick={()=>{searchContext.getItemsByTitle()
-            console.log("aaaaaaa");}}>search</button>
           </Box>
           <Box className={classes.navButton}>
             {token  ? <Button variant="contained" onClick={logout}><Link to= "/">Sign Out</Link></Button> : <Button variant="contained" onClick={redirect}>Sign In</Button>}
