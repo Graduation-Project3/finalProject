@@ -77,7 +77,7 @@ function App() {
         <Route path='/product/:prodId' element={<Product />} />
         <Route path='/addItem' element={<AddItem />} />
         <Route path="*" element={<Navigate to='/' />} />
-        <Route path='/category' element={<CategoryItem />} />
+        <Route path='/category/:category' element={<CategoryItem />} />
       <Route path='/Search' element={<SearchItem />} />
       </Routes> :
       <Routes>
@@ -86,7 +86,7 @@ function App() {
       <Route path='/signIn' element={<Login />} />
       <Route path='/product/:prodId' element={<Product />} />
       <Route path="*" element={<Navigate to='/signIn' />} />
-      <Route path='/category' element={<CategoryItem />} />
+      <Route path='/category/:category' element={<CategoryItem />} />
       <Route path='/Search' element={<SearchItem />} />
       </Routes>
   }

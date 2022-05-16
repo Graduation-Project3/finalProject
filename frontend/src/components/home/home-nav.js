@@ -89,7 +89,6 @@ function Nav(props) {
                 <em>None</em>
               </MenuItem>
               <MenuItem value={"car"} >Ten</MenuItem>
-
               <MenuItem value={20}
               >Twenty
               </MenuItem>
@@ -112,7 +111,7 @@ function Nav(props) {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <SearchIcon className={classes.cursor} onClick={()=>{searchContext.getItemsByTitle()}} />
+                    <SearchIcon className={classes.mainColor} onClick={()=>{searchContext.getItemsByTitle()}} />
                   </InputAdornment>
                 ),
               }}

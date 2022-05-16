@@ -28,7 +28,7 @@ const CategoryProvider = (props) => {
     axios
       .get(`/item/category/${category}`)
       .then((result) => {
-        navigate(`/category`);
+        navigate(`/category/${category}`);
         console.log("items",items)
         setItems(result.data)
             // setItems([...items, element]))
