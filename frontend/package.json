@@ -16,6 +16,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
+    "email-validator": "^2.0.4",
     "final-form": "^4.20.7",
     "firebase": "^9.8.1",
     "payment": "^2.4.6",

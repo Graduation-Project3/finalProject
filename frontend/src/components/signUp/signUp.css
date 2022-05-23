@@ -44,10 +44,38 @@
 .message {
     color: red;
     margin: auto;
-    margin-top: 10px;
+    margin-top: 7px;
 }
 
 .img {
     width: 70%;
     margin: auto;
 }
+.errorMessage {
+    color: red;
+    position:'relative';
+    margin-top: 7px;
+    height: 14px;
+    font-size: 10pt;
+
+}
+.passMessage {
+    color: green;
+    position:'relative';
+    margin-top:7px;
+    height: 14px;
+    font-size: 10pt;
+}
+.meesageValidate{
+    position:'absolute'
+}
+
+.emailMsg{
+    margin-top: -15px;
+}
+
+.msg {
+    margin-top: 0px;
+}
+
+

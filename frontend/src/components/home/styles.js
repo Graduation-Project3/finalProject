@@ -48,6 +48,9 @@ const useStyle = makeStyles(() => {
       gridColumn:'7/10',
       gridRow:'1',
     },
+    searchButton:{
+      cursor:"pointer",
+    },
     navButton: {
       gridColumn:'12',
       gridRow:'1',

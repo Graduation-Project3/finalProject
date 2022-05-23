@@ -108,7 +108,7 @@ function Nav(props) {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <SearchIcon className={classes.mainColor} onClick={()=>{navigate(`/search`,{state:{title:searchVal}});}} />
+                    <SearchIcon className={classes.searchButton  } onClick={()=>{navigate(`/search`,{state:{title:searchVal}});}} />
                   </InputAdornment>
                 ),
               }}
