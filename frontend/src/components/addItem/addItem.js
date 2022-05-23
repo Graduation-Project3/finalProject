@@ -1,42 +1,24 @@
 import { useContext, useState } from 'react';
 import useStyle from "../signIn/login-style";
 import './addItem.css';
-
 import { TextField, Box, Grid, Button, Typography, Input } from '@mui/material';
 import { AddItemContext } from '../../contexts/addItem';
 
 
 
+
 const AddItem = () => {
+   
     const classes = useStyle();
     const addItemContext = useContext(AddItemContext);
-    const [selectedFiles, setSelectedFiles] = useState([]);
     // on click submit 
     const handleSubmit = (e) => {
         console.log('kjh');
         addItemContext.addItem();
     };
     // to on chane upload photo
-    const handleImageChange = (e) => {
-        // console.log(e.target.files[])
-        if (e.target.files) {
-            const filesArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
 
-            // console.log("filesArray: ", filesArray);
 
-            setSelectedFiles((prevImages) => prevImages.concat(filesArray));
-            Array.from(e.target.files).map(
-                (file) => URL.revokeObjectURL(file) // avoid memory leak
-            );
-        }
-    };
-
-    const renderPhotos = (source) => {
-        console.log('source: ', source);
-        return source.map((photo) => {
-            return <img src={photo} alt="" key={photo} style={{height: '100px', width:'100px'}}/>;
-        });
-    };
 
     return (<div className={classes.page_login}>
         <div className={classes.content_login}>
@@ -96,13 +78,7 @@ const AddItem = () => {
                         </Grid>
                         <Grid>
                             {/* create Description */}
-                            <TextField
-                                required
-                                label="image"
-                                className={classes.margindown}
-                                onChange={(e) => {
-                                    addItemContext.setImage(e.target.value);
-                                }} />
+                            <input type="file" multiple onChange={addItemContext.handleImage} />
                         </Grid>
 {/* 
                         <Grid>

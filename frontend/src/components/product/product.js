@@ -11,11 +11,7 @@ import Axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import Select from '@mui/material/Select';
-
-
-
-
-
+import { Carousel } from 'react-carousel-minimal';
 
 
 function Product(props) {
@@ -25,12 +21,26 @@ function Product(props) {
     const token = localStorage.getItem("auth-token");
     const [product, setProduct] = useState(null);
     const [prices, setPrices] = useState([]);
-    const [price, setPrice] = useState(0)
+    const [image,setImage] = useState();
+    const [datee, setDate] = useState();
+    const [price, setPrice] = useState(0);
+ 
+
     useEffect(() => {
         Axios.get(`/product?id=${params.prodId}&type=single`).then(response => {
             setProduct(response.data.prod)
-            setPrices(response.data.prices);
+            setPrices(response.data.prod.prices);
+            setPrice(response.data.prod.maxPrice);
+            setDate(response.data.prod.date)
+            let i = response.data.prod.imageUrl;
+            let d =[];
+            for (let index = 0; index < i.length; index++) {
+                d.push({
+                    image : i[index],
 
+                })
+            };
+            setImage(d);
         }).catch(err => console.log(err))
     }, []);
     const handleSubmit = () => {
@@ -38,8 +48,16 @@ function Product(props) {
             navigate('/signIn');
         }
         else {
-            // payment logic
-            navigate('/');
+            Axios.post('/auction', { product: product, price: price, token: token }).then(response => {
+                console.log(response);
+                if (response.data.pay) {
+                    window.location.reload()
+                }
+                else {
+                    navigate('/payment',{state:{product:product._id,price:price,token:token}});
+                }
+            }).catch(err => console.log(err))
+
         }
     };
     const handleChange = (event) => {
@@ -53,19 +71,62 @@ function Product(props) {
             {
                 product ? <main className={classes.productContainer}>
                     <Box className={classes.mainBox}>
-                        <Box className={classes.imgBox}>
-                            <img className={classes.prodImg} src={product.imageUrl[0]}></img>
+                    <Box className={classes.imgBox}>
+                            {/* <img className={classes.prodImg} src={product.imageUrl[0]}></img>
+                            <img className={classes.prodImg} src={product.imageUrl[1]}></img>
+                            <img className={classes.prodImg} src={product.imageUrl[2]}></img>  */}
+
+                            {
+                                <div style={{
+                                    padding: "0 20px"
+                                }}>
+                                    {
+                                        image ? <Carousel
+                                        data={image}
+                                        time={2000}
+                                        width="400px"
+                                        height="200px"
+                                        radius="10px"
+                                        slideNumber={true}
+                                        automatic={true}
+                                        pauseIconColor="white"
+                                        pauseIconSize="40px"
+                                        slideBackgroundColor="darkgrey"
+                                        slideImageFit="cover"
+                                        thumbnails={true}
+                                        thumbnailWidth="100px"
+                                        style={{
+                                            textAlign: "center",
+                                            maxWidth: "850px",
+                                            maxHeight: "500px",
+                                            margin: "40px auto",
+                                        }}
+                                    /> 
+                                    : ''
+                                    }
+                                    
+                                </div>
+
+                            }
+
                         </Box>
                         <Box className={classes.aucBox}>
+                        <Typography className={classes.prodTitle} variant='h6' component="h3" style={{ margin: '1rem 0' }}>expires at {datee}</Typography>
                             <Typography className={classes.prodTitle} variant='h4' component="h3" style={{ margin: '1rem 0' }}>{product.title}</Typography>
                             <Typography variant="body" className={classes.prodDesc} style={{ margin: '1rem 0' }}>
                                 {product.description}
                             </Typography>
+                            <Typography variant="body" className={classes.prodDesc} style={{ margin: '1rem 0' }}>
+                                starts with {product.minPrice}
+                            </Typography>
+                            <Typography variant="body" className={classes.prodDesc} style={{ margin: '1rem 0' }}>
+                                cuurent price = {price}
+                            </Typography>
 
-                            <FormControl sx={{ m: 2, minWidth: '10rem',textAlign:'center' }} variant="outlined" >
+                            <FormControl sx={{ m: 2, minWidth: '10rem', textAlign: 'center' }} variant="outlined" >
                                 <InputLabel id="demo-simple-select-helper-label">Enter Ammount</InputLabel>
                                 <Select
-                                    
+
                                     labelId="demo-simple-select-helper-label"
                                     id="demo-simple-select-helper"
                                     value={price}

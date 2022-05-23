@@ -10,8 +10,6 @@ import Footer from "./home-footer";
 import Axios from 'axios';
 
 
-
-
 function Home() {
     const location = useLocation();
     const [all, setAll] = useState([]);

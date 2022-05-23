@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import { useContext,useEffect } from 'react';
+import { useContext,useEffect,useState } from 'react';
 import GavelIcon from '@mui/icons-material/Gavel';
 import { TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -36,6 +36,8 @@ function Nav(props) {
   const searchContext = useContext(SearchContext);
   let token = localStorage.getItem("auth-token");
   const navigate = useNavigate();
+
+  const [searchVal, setSearchVal] = useState("");
   
   const logout = ()=> {
     localStorage.setItem("auth-token","");
@@ -53,11 +55,7 @@ function Nav(props) {
     navigate('/signIn')
   }
 
-  useEffect(() => {
-    console.log("state");
-    categoryContext.getItemsByCatgory()
-    categoryContext.setCategory("")
-  }, [categoryContext.category]);
+  
 
 
   const classes = useStyle();
@@ -71,17 +69,16 @@ function Nav(props) {
             <GavelIcon className='logo'></GavelIcon>
             <Typography variant='h6' component="h3" className={classes.navItem}>Mazad</Typography>
           </Box>
-          <Box className={classes.navCategories}>
-            <div className={classes.catContainer}><FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
+          <Box className={classes.navCategories} >
+            <div className={classes.catContainer}><FormControl sx={{ m:-2, minWidth: 120 }}>
+            <InputLabel  id="demo-simple-select-helper-label">Age</InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               label="Age"
               value={categoryContext.category}
               onChange={(e) => {
-                console.log("category",categoryContext.category);
-                categoryContext.setCategory(e.target.value)
+                navigate(`/category/${e.target.value}`,{state:{category:e.target.value}});
                 
               }}
             >
@@ -104,14 +101,14 @@ function Nav(props) {
               label="Search"
               size='small'
               onChange={(e) => {
-                searchContext.setTitle(e.target.value)
+                setSearchVal(e.target.value)
               }}
               className={classes.mainColor}
               color={'primary'}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <SearchIcon className={classes.mainColor} onClick={()=>{searchContext.getItemsByTitle()}} />
+                    <SearchIcon className={classes.mainColor} onClick={()=>{navigate(`/search`,{state:{title:searchVal}});}} />
                   </InputAdornment>
                 ),
               }}

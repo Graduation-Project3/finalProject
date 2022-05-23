@@ -12,24 +12,24 @@ import useStyle from './styles';
 function Carousell(props) {
     const classes = useStyle();
     return (
-            
-            <div className={classes.slider}>
-                <Carousel
-                    className={classes.cas}
-                    NextIcon={<KeyboardArrowRightIcon  />}
-                    PrevIcon={<KeyboardArrowLeftIcon  />}
-                    navButtonsProps={{          // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
-                        className:classes.sliderButtons,
-                    }}
-                    indicators={null}
-                    
-                >
 
-                    {items.map((item,i) => (
-                        <Item key={i} {...item} />
-                    ))}
-                </Carousel>
-            </div>
+        <div className={classes.slider}>
+            <Carousel
+                className={classes.cas}
+                NextIcon={<KeyboardArrowRightIcon />}
+                PrevIcon={<KeyboardArrowLeftIcon />}
+                navButtonsProps={{          // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
+                    className: classes.sliderButtons,
+                }}
+                indicators={null}
+
+            >
+
+                {items.map((item, i) => (
+                    <Item key={i} {...item} />
+                ))}
+            </Carousel>
+        </div>
 
 
 
@@ -39,7 +39,7 @@ function Carousell(props) {
 const Item = ({ imageUrl, name, description }) => {
     const classes = useStyle();
     return (
-        
+
         <div className={classes.sliderContainer}>
 
             <img src={imageUrl} className={classes.sliderImage} alt='hi' />
@@ -48,8 +48,13 @@ const Item = ({ imageUrl, name, description }) => {
                 <Typography variant='h5' >{name} </Typography>
                 <Typography variant='body1' >{description}</Typography>
             </div>
-            <div className={classes.sliderButton}>
-                <Button variant="contained" style={{backgroundColor: '#8D8DAA', color: '#FFFFFF'}}> Read More</Button>
+            <div className={classes.sliderButtono} style={{
+                position: 'absolute',
+                bottom: ' 10% ',
+                left: '29% ',
+                borderRadius: '2%',
+            }}>
+                <Button variant="contained" style={{ backgroundColor: '#8D8DAA', color: '#FFFFFF' }}> Read More</Button>
             </div>
         </div>
     );

@@ -1,0 +1,14 @@
+body{
+    margin: auto;  
+ } 
+ 
+ 
+ @media (max-width: 400px) {
+     .page_login  {
+         margin: 50% auto;
+         width: 80%
+   }
+   .form{
+       width: 100%;
+   }
+ }

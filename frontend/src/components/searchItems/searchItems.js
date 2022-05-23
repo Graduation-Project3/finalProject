@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useState, useContext } from 'react';
+import { useState, useContext,useEffect } from 'react';
+import axios  from 'axios';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -13,25 +14,41 @@ import { Link } from 'react-router-dom';
 import useStyle from './styles';
 import Nav from '../home/home-nav';
 import { SearchContext } from '../../contexts/searchItems';
+import {useLocation} from 'react-router-dom';
 
+ 
 
 
 function SearchItem() {
-    
+    const location = useLocation();
     const searchContext = useContext(SearchContext);
     const classes = useStyle();
     const [show, setShow] = useState(classes.cardContainer);
+    const [items, setItems] = useState([]);
+    const [message, setMessage] = useState("");
+
+    useEffect(() => {
+        axios
+        .get(`/item/title/${location.state.title}`)
+        .then((result) => {
+          console.log("items",items)
+          setItems(result.data)
+        })
+        .catch((err) => {
+          setMessage("No item found")
+        });
+      }, [location.state.category]);
 
     return (
 
         <div className={classes.cards} >
             
             <Nav/>
-            {searchContext.message && (
-                    <h1 style={"color:red"}>{searchContext.message}</h1>
+            {message && (
+                    <h1 style={"color:red"}>{message}</h1>
                 )}
             <div className={show}>
-                {searchContext.items.map((item, i) => (
+                {items.map((item, i) => (
                     <Item key={i} {...item} />
                 ))}
             </div >

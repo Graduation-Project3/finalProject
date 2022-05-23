@@ -12,7 +12,8 @@ const users = new mongoose.Schema({
   confirmPassword: { type: String },
   admin: { type: Boolean, default: false },
   phone: { type: String, required: true },
-
+  resetToken: String,
+  resetTokenExpiration: Date,
 
 });
 

@@ -1,5 +1,5 @@
 const express = require('express');
-const checkAuth = require('../middleware/auth');
+
 const router = express.Router();
 
 const signsController = require('../controllers/signs');
@@ -7,9 +7,11 @@ const signsController = require('../controllers/signs');
 router.post('/signUp',signsController.postSignUp);
 router.post('/signIn',signsController.postSignIn);
 router.post('/isValid',signsController.postIsValid);
-/* router.use(checkAuth); */
 
 router.post('/signOut',signsController.postLogout);
+router.post('/forget',signsController.postReset);
+router.get('/reset',signsController.getNewPassword);
+router.post('/reset',signsController.postNewPassword);
 
 
 

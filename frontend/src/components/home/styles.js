@@ -1,5 +1,5 @@
 import { makeStyles } from '@mui/styles';
-import { color, createTheme, height } from '@mui/system';
+import { color, createTheme, height, textAlign } from '@mui/system';
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -42,7 +42,7 @@ const useStyle = makeStyles(() => {
     },
     navCategories: {
       gridRow: '1',
-      gridColumn: '3/6' 
+      gridColumn: '3/6',
     },
     navSearch: {
       gridColumn:'7/10',
@@ -269,6 +269,10 @@ const useStyle = makeStyles(() => {
         marginTop:'2rem'
       },
     },
+    line:
+    {
+      textAlign:'center'
+    }
   }
 }
 );

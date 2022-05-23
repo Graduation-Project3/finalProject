@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const itemsSchema = new Schema({
@@ -25,7 +25,28 @@ const itemsSchema = new Schema({
      category:{
         type:String,
         required:true
+    },
+    prices:{
+        type:[Number],
+     },
+    history:{
+        type: [Object]
+    },
+    startDate:{
+      type:String  
+    },
+    endDate:{
+        type:String
+    },
+    date:{
+        type:String
+    },
+    ready:{
+        type:Number,
+        required:true ,
+        default:1
     }
+
 });
 
 module.exports =  mongoose.model('Item',itemsSchema);

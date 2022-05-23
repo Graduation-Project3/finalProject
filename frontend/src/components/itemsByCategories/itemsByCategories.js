@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useState, useContext } from 'react';
+import axios from "axios";
+import { useState, useContext,useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,28 +8,38 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-import { Redirect } from 'react-router-dom';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import useStyle from './styles';
 import Nav from '../home/home-nav';
-import { CategoryContext } from '../../contexts/itemsByCategories';
+import {useLocation} from 'react-router-dom';
 
 
 
 function CategoryItem() {
-
-    const categoryContext = useContext(CategoryContext);
+    const location = useLocation();
+    
+  const [items, setItems] = useState([]);
+  const [message, setMessage] = useState("");
+    console.log("location.state.name",location.state.category);
     const classes = useStyle();
     const [show, setShow] = useState(classes.cardContainer);
-    console.log("categoryContext.items", categoryContext.items);
+    useEffect(() => {
+        axios
+        .get(`/item/category/${location.state.category}`)
+        .then((result) => {
+          console.log("items",items)
+          setItems(result.data)
+        })
+        .catch((err) => {
+          setMessage("No item found")
+        });
+      }, [location.state.category]);
 
     return (
 
         <div className={classes.cards} >
             <Nav />
             <div className={show}>
-                {categoryContext.items.map((item, i) => (
+                {items.map((item, i) => (
                     <Item key={i} {...item} />
                 ))}
             </div >

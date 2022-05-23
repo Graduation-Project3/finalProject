@@ -15,6 +15,15 @@ import AddItem from './components/addItem/addItem';
 import { userContext } from './contexts/userContext';
 import CategoryItem from './components/itemsByCategories/itemsByCategories';
 import SearchItem from './components/searchItems/searchItems';
+import UploadImage from './components/firebase/img';
+import Payment from './components/payment/Payment';
+import Forget from './components/reset/enterEmail';
+import Reset from './components/reset/new-password';
+import Admin from './components/admin/admin';
+import EditUsers from './components/admin/user';
+import CategoryControll from './components/admin/category';
+import EditItem from './components/admin/item';
+import AcceptItem from './components/admin/acceptItems';
 
 function App() {
   let t = localStorage.getItem("auth-token");
@@ -24,6 +33,8 @@ function App() {
     <Route exact path='/' element={<Home />} />
     <Route path='/signUp' element={<SignUp />} />
     <Route path='/signIn' element={<Login />} />
+    <Route path='/admin' element={<Admin />} />
+
     <Route path="*" element={<Navigate to='/signIn' />} />
   </Routes>)
 
@@ -57,7 +68,7 @@ function App() {
         localStorage.setItem("auth-token", "");
         setToken(false);
       }
-      
+
     })
   }, []);
 
@@ -77,21 +88,39 @@ function App() {
         <Route path='/product/:prodId' element={<Product />} />
         <Route path='/addItem' element={<AddItem />} />
         <Route path="*" element={<Navigate to='/' />} />
+        <Route path='/UploadImage' element={<UploadImage />} />
         <Route path='/category/:category' element={<CategoryItem />} />
-      <Route path='/Search' element={<SearchItem />} />
+        <Route path='/Search' element={<SearchItem />} />
+        <Route path='/payment' element={<Payment />} />
+        <Route path='/editUsers' element={<EditUsers />} />
+        <Route path='/editCategory' element={<CategoryControll />} />
+        <Route path='/editItems' element={<EditItem />} />
+        <Route path='/acceptItems' element={<AcceptItem />} />
+
       </Routes> :
-      <Routes>
-      <Route exact path='/' element={<Home />} />
-      <Route path='/signUp' element={<SignUp />} />
-      <Route path='/signIn' element={<Login />} />
-      <Route path='/product/:prodId' element={<Product />} />
-      <Route path="*" element={<Navigate to='/signIn' />} />
-      <Route path='/category/:category' element={<CategoryItem />} />
-      <Route path='/Search' element={<SearchItem />} />
-      </Routes>
-  }
+        <Routes>
+          <Route exact path='/' element={<Home />} />
+          <Route path='/signUp' element={<SignUp />} />
+          <Route path='/signIn' element={<Login />} />
+          <Route path='/UploadImage' element={<UploadImage />} />
+          <Route path='/product/:prodId' element={<Product />} />
+          <Route path="*" element={<Navigate to='/signIn' />} />
+          <Route path='/category/:category' element={<CategoryItem />} />
+          <Route path='/Search' element={<SearchItem />} />
+          <Route path='/forget-email' element={<Forget />} />
+          <Route path='/reset/:token' element={<Reset />} />
+          <Route path='/editUsers' element={<EditUsers />} />
+          <Route path='/editCategory' element={<CategoryControll />} />
+          <Route path='/editItems' element={<EditItem />} />
+          <Route path='/acceptItems' element={<AcceptItem />} />
+          <Route path='/admin' element={<Admin />} />
+
+        </Routes>
+      }
     </userContext.Provider>
   );
 }
 
 export default App;
+
+

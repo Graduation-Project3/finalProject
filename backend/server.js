@@ -15,6 +15,9 @@ app.listen(4000,console.log("running"));
 const home = require('./routes/routes');
 const signs = require('./routes/signs-Routes');
 const add = require('./routes/addItem-Route');
+const category = require('./routes/category')
+const item = require('./routes/item')
+const user = require('./routes/user')
 const app = express();
 
 /* app.use((req, res, next) => {
@@ -33,6 +36,9 @@ app.use(bodyParser.urlencoded());
 app.use(home);
 app.use(signs);
 app.use(add);
+app.use(user)
+app.use(category)
+app.use(item)
 
 
 
