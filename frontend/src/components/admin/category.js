@@ -43,7 +43,6 @@ const CategoryControll = () => {
         axios
             .get(`/getAllCategory`)
             .then((result) => {
-                console.log("result",result);
                 setCategory(result.data)
                 setMessage("result")
             })

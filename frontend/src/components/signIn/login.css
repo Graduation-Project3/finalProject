@@ -12,3 +12,26 @@ body{
       width: 100%;
   }
 }
+.errorMessage1 {
+    color: red;
+    position:'relative';
+    margin-top: 7px;
+    height: 14px;
+    font-size: 10pt;
+
+}
+.passMessage1 {
+    color: green;
+    position:'relative';
+    margin-top:7px;
+    height: 14px;
+    font-size: 10pt;
+}
+.meesageValidate1{
+    position:'absolute'
+}
+
+
+.msg1 {
+    margin-top: 0px;
+}

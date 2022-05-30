@@ -1,7 +1,9 @@
-
+.mbody{
+    background-image: url(./Sho_958x481_1198x601_1198x601.png);
+}
 .title{
     margin: auto; 
-    color:#088dae ;
+    color:#000000 ;
 }
 @media (max-width:670px) {
     .txt{
@@ -15,14 +17,15 @@
 .mainDiv {
     display: grid;
     width: 60rem;
-    margin-left: auto;
+    margin-left: 20rem;
     margin-right: auto;
+    margin-top: 3.5rem;
 }
 
 
 .rightDiv {
     border: 2px solid ;
-    border-radius: 25px;
+    border-radius: 10px;
     margin: auto;
     width: 50%;
     display: grid;

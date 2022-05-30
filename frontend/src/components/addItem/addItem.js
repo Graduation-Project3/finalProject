@@ -1,19 +1,34 @@
-import { useContext, useState } from 'react';
+import { useContext,useEffect, useState } from 'react';
+import axios from 'axios';
 import useStyle from "../signIn/login-style";
 import './addItem.css';
 import { TextField, Box, Grid, Button, Typography, Input } from '@mui/material';
 import { AddItemContext } from '../../contexts/addItem';
-
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 
 const AddItem = () => {
    
+    const [category, setCategory] = useState([]);
+    const [categoryTitle, setCategoryTitle] = useState([]);
+    useEffect(() => {
+        axios.get(`/getAllCategory`)
+          .then((result) => {
+            setCategory(result.data)
+          })
+          .catch((err) => {
+            
+          })
+      }, [])
+
     const classes = useStyle();
     const addItemContext = useContext(AddItemContext);
     // on click submit 
     const handleSubmit = (e) => {
-        console.log('kjh');
         addItemContext.addItem();
     };
     // to on chane upload photo
@@ -39,15 +54,15 @@ const AddItem = () => {
                                 label="Title"
                                 className={classes.margindown}
                                 onChange={(e) => {
-                                    addItemContext.setTitle(e.target.value);
+                                    addItemContext.setTitle(e.target.value.toLowerCase());
                                 }} />
-                            
+
                         </Grid>
 
                         <Grid>
                             {/* create Description */}
                             <textarea
-                                style={{resize: 'none'}}
+                                style={{ resize: 'none' }}
                                 required
                                 rows="6" cols="25"
                                 placeholder='Please type description..'
@@ -56,7 +71,7 @@ const AddItem = () => {
                                 onChange={(e) => {
                                     addItemContext.setDescription(e.target.value);
                                 }} >
-                                </textarea>
+                            </textarea>
                         </Grid>
                         <Grid>
                             {/* create Price */}
@@ -67,20 +82,32 @@ const AddItem = () => {
                                 onChange={(e) => {
                                     addItemContext.setMinPrice(e.target.value);
                                 }} />
-                                 <TextField
-                                required
-                                label="max Price"
-                                className={classes.margindown}
-                                onChange={(e) => {
-                                    addItemContext.setMaxPrice(e.target.value);
-                                }} />
-                            
+                            <FormControl sx={{  minWidth: 210 }}>
+                                <InputLabel id="demo-simple-select-helper-label">Category</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-helper-label"
+                                    id="demo-simple-select-helper"
+                                    label="category"
+                                    value={categoryTitle}
+                                    onChange={(e) => {
+                                        setCategoryTitle(e.target.value)
+                                    }}
+                                >
+                                    {category.map(val => {
+                                        return (
+                                            <MenuItem value={val.title} >{val.title}</MenuItem>
+                                        )
+                                    })}
+
+                                </Select>
+                            </FormControl>
+
                         </Grid>
                         <Grid>
                             {/* create Description */}
                             <input type="file" multiple onChange={addItemContext.handleImage} />
                         </Grid>
-{/* 
+                        {/* 
                         <Grid>
                            
                             <div>

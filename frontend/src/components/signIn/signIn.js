@@ -1,7 +1,6 @@
 import './login.css';
 import TextField from '@mui/material/TextField';
 import { Button, createTheme, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import { useState, useContext } from 'react';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -11,11 +10,13 @@ import FormControl from '@mui/material/FormControl';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router-dom';
-import Axios from 'axios';
 import { Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import useStyle from './login-style';
 import { SignInContext } from '../../contexts/signIn';
+import ErrorIcon from '@mui/icons-material/Error';
+import CheckIcon from '@mui/icons-material/Check';
+const emailvalidator = require("email-validator");
 
 
 
@@ -36,6 +37,33 @@ const theme = createTheme({
 const Login = () => {
     const signInContext = useContext(SignInContext);
     const navigate = useNavigate();
+    document.body.classList.add('mbody');
+    ///Email validate
+    const emailVali = () => {
+        if (signInContext.email !== "" && !(emailvalidator.validate(signInContext.email))) {
+            return (<div className='errorMessage1 emailMsg1'><ErrorIcon sx={{ height: 17 }}></ErrorIcon> <span className='msg1' style={{ position: 'absolute' }}> Incorrect Email</span></div>)
+        }
+        else if (signInContext.email === "") {
+            return
+        }
+        else {
+            return (<div className='passMessage1 emailMsg1'><CheckIcon sx={{ height: 17 }}></CheckIcon><span className='msg1' style={{ position: 'absolute' }}> Correct Email</span> </div>)
+        }
+    }
+
+    /// Password Validate
+    const passwordValidate = () => {
+        if (signInContext.password === "") {
+            return
+        }
+        else if (signInContext.password.length < 8) {
+            return (<div className='errorMessage'><ErrorIcon sx={{ height: 17 }}></ErrorIcon> <span style={{ position: 'absolute' }}> Your password must be at least 8 characters</span></div>)
+        }
+
+        else {
+            return (<div className='passMessage'><CheckIcon sx={{ height: 17 }} /> <span style={{ position: 'absolute' }}> Correct  Password</span></div>)
+        }
+    }
 
 
     const sign = async (e) => {
@@ -61,22 +89,23 @@ const Login = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    /*  const submitHandler = (e) => {
-         signInContext.addLogin();
-     }; */
+
+
     const redirect = () => {
         navigate('/signUp')
     }
 
     const classes = useStyle();
 
-    return <div className={classes.page_login}>
+     return(
+         <>
+          <div className={classes.page_login}>
+     
 
         <div className={classes.content_login}>
             <form className={classes.form}>
 
                 <Box >
-                    asfasf
                     <Grid container rowSpacing={3} >
                         {/* typography */}
                         <Grid item xs={12}>
@@ -84,19 +113,23 @@ const Login = () => {
                                 Welcome back
                             </Typography>
                         </Grid>
+                      
 
                         {/* email */}
                         <Grid item xs={12} >
-                            <TextField sx={{ width: '80%' }} label="Email" variant="outlined" 
-                            onChange={(e) => {
-                                signInContext.setEmail(e.target.value);
-                            }} />
+                            <TextField sx={{ width: '100%' }} label="Email" variant="outlined"
+                            size='small'
+                                onChange={(e) => {
+                                    signInContext.setEmail(e.target.value.toLowerCase());
+                                }} />
                         </Grid >
+                        {emailVali()}
 
                         {/* password and hide password */}
 
                         <Grid item xs={12} >
-                            <FormControl sx={{ width: '80%' }} variant="outlined">
+                        
+                            <FormControl sx={{ width: '100%' }} variant="outlined" size='small'>
                                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                                 <OutlinedInput
                                     id="outlined-adornment-password"
@@ -120,6 +153,7 @@ const Login = () => {
                                 />
                             </FormControl>
                         </Grid>
+                        {passwordValidate()}
                     </Grid>
 
                 </Box>
@@ -136,9 +170,14 @@ const Login = () => {
 
             </form>
         </div>
-    </div>
+        {signInContext.message && (
+            <div className='message'>{signInContext.message}</div>
+        )}
+       
+      </div>  
+    </>
 
-
+    ) 
 };
 
 export default Login;

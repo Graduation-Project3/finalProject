@@ -10,7 +10,7 @@ const items = [
         description: 'Check our  huge Headsets collecion',
     },
     {
-        imageUrl: 'https://miro.medium.com/max/4725/1*fifJ-hYZS44OwluLL2YFXw.png',
+        imageUrl: 'https://cdn-abfip.nitrocdn.com/lqipJlNemOqcIaXMdmClpHJUwEIUyxAp/assets/static/optimized/rev-2379a43/wp-content/uploads/2018/08/sonycans-1-1800x500.jpg',
         name: 'Pc\'s',
         description: 'Check our  huge PC\'s collecion',
     },

@@ -3,7 +3,6 @@ import Axios from "axios";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import {storage} from "../components/firebase/firebase";
 import { createContext } from "react";
-import { Input } from '@mui/material';
 export const AddItemContext = createContext(' ');
 
 const AddItemProvider = (props) => {

@@ -1,21 +1,18 @@
 import './login.css';
-import TextField from '@mui/material/TextField';
-import { Button, createTheme, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { useState, useContext, useEffect } from 'react';
+import { Button, createTheme} from '@mui/material';
+import { useState,  useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import Axios from 'axios';
 import { Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import useStyle from './login-style';
+import ErrorIcon from '@mui/icons-material/Error';
+import CheckIcon from '@mui/icons-material/Check';
 
 
 
@@ -36,7 +33,8 @@ const theme = createTheme({
 
 const Reset = () => {
     const params = useParams();
-    const [password, setPassword] = useState();
+    const [passwordCheck, setPasswordCheck] = useState("");
+    const [password, setPassword] = useState("");
     const [valid, setValid] = useState('ok');
     const [message, setMessage] = useState('');
     const [id,setId] = useState();
@@ -53,6 +51,18 @@ const Reset = () => {
                 setValid(false);
             });
     }, []);
+    const passwordValidate = () => {
+        if (passwordCheck === "") {
+            return
+        }
+        else if (passwordCheck.length < 8) {
+            return (<div className='errorMessage'><ErrorIcon sx={{ height: 17 }}></ErrorIcon> <span style={{ position: 'absolute' }}> Your password must be at least 8 characters</span></div>)
+        }
+
+        else {
+            return (<div className='passMessage'><CheckIcon sx={{ height: 17 }} /> <span style={{ position: 'absolute' }}> Correct  Password</span></div>)
+        }
+    }
     const reset = () => {
         
         Axios.post("/reset", {
@@ -82,13 +92,15 @@ const Reset = () => {
 
                 <Box >
                      <Grid item xs={12} >
-                        <FormControl sx={{ width: '80%' }} variant="outlined">
+                        <FormControl sx={{ width: '80%', marginBottom:'10%' }} variant="outlined">
                             <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                            
                             <OutlinedInput
                                 id="outlined-adornment-password"
                                 type={ 'password'}
                                 onChange={(e) => {
                                     setPassword(e.target.value);
+                                    setPasswordCheck(e.target.value)
                                 }}
                                 endAdornment={
                                     <InputAdornment position="end">
@@ -104,6 +116,8 @@ const Reset = () => {
                             />
                         </FormControl>
                     </Grid>
+                    {passwordValidate()}
+
                      
                 </Box>
 

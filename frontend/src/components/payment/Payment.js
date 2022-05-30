@@ -98,7 +98,6 @@ function Payment() {
                 />
               </div>
               <div className="buttons"> 
-                <span  style={{display:"block"}} >as a kjn w</span>
                 <button type="button" disabled={submitting} style={{display:"block"}} onClick={onSubmit} >
                   Submit
                 </button>

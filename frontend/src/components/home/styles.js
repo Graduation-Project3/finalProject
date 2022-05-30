@@ -1,5 +1,6 @@
-import { makeStyles } from '@mui/styles';
-import { color, createTheme, height, textAlign } from '@mui/system';
+
+    import { makeStyles } from '@mui/styles';
+import { color, createTheme, height } from '@mui/system';
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -29,6 +30,9 @@ const useStyle = makeStyles(() => {
       gridAutoColumns: '1fr',
       backgroundColor: '#F7F5F2',
     },
+    searchButton:{
+      cursor:"pointer",
+    },
     nav: {
       padding: ' 0.9rem 2rem',
       backgroundColor: '#F7F5F2',
@@ -43,13 +47,12 @@ const useStyle = makeStyles(() => {
     navCategories: {
       gridRow: '1',
       gridColumn: '3/6',
+      position:'relative',
+      
     },
     navSearch: {
       gridColumn:'7/10',
       gridRow:'1',
-    },
-    searchButton:{
-      cursor:"pointer",
     },
     navButton: {
       gridColumn:'12',
@@ -65,7 +68,7 @@ const useStyle = makeStyles(() => {
     },
     catContainer: {
       position: 'relative',
-      top: '6px',
+      top :'7px'
     },
     //slider styles
     cas:{
@@ -75,7 +78,6 @@ const useStyle = makeStyles(() => {
       height: '23rem',
       display: 'block',
       position: 'static',
-      backgroundColor: '#F7F5F2',
     },
     sliderButtons: {
       backgroundColor: 'gray',
@@ -104,21 +106,22 @@ const useStyle = makeStyles(() => {
       color: 'aliceblue',
       float: 'left',
     },
-    sliderButton: {
-      position: 'absolute',
-      bottom: ' 17 ',
-      left: '29 ',
-      borderRadius: '2%',
+    sliderButtono: {
+     
     },
     //home card styles
     cards: {
       width: '100%',
       padding: ' 3% 0',
-      backgroundColor: '#F7F5F2',
+      
     },
     card:{
       maxWidth: '17rem',
-      margin:'1rem'
+      margin:'1rem',
+      
+    },
+    cardContent:{
+      backgroundColor: '#F7F5F2',
     },
     cardContainer: {
       display: 'grid',
@@ -150,7 +153,7 @@ const useStyle = makeStyles(() => {
     testomonial: {
       display: 'block',
       position: 'static',
-      backgroundColor: '#DFDFDE',
+      backgroundColor: '#F7F5F2',
       height:'10rem'
     },
     testoContent: {
@@ -272,10 +275,6 @@ const useStyle = makeStyles(() => {
         marginTop:'2rem'
       },
     },
-    line:
-    {
-      textAlign:'center'
-    }
   }
 }
 );

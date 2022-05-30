@@ -7,8 +7,6 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@material-ui/core';
 import useStyle from './styles';
 
-
-
 function Carousell(props) {
     const classes = useStyle();
     return (
@@ -30,9 +28,6 @@ function Carousell(props) {
                 ))}
             </Carousel>
         </div>
-
-
-
     );
 }
 
@@ -54,7 +49,6 @@ const Item = ({ imageUrl, name, description }) => {
                 left: '29% ',
                 borderRadius: '2%',
             }}>
-                <Button variant="contained" style={{ backgroundColor: '#8D8DAA', color: '#FFFFFF' }}> Read More</Button>
             </div>
         </div>
     );

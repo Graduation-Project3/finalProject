@@ -18,6 +18,7 @@ const emailvalidator = require("email-validator");
 
 const SignUp = () => {
     const signUpContext = useContext(SignUpContext);
+    document.body.classList.add('mbody');
     const [values, setValues] = React.useState({
         amount: '',
         password: '',
@@ -106,7 +107,8 @@ const SignUp = () => {
     };
 
     return (
-        <div className="mainDiv mainQ" >
+        <div className='body'>
+        <div className="mainDiv mainQ " >
             <div className='rightDiv '>
                 <h1 className='title'> SIGNUP</h1>
                 <form onSubmit={handleSubmit} className='form'>
@@ -154,7 +156,7 @@ const SignUp = () => {
                         autoComplete="email"
                         variant="outlined"
                         onChange={(e) => {
-                            signUpContext.setEmail(e.target.value);
+                            signUpContext.setEmail(e.target.value.toLowerCase());
                         }}
                     />
 
@@ -265,12 +267,13 @@ const SignUp = () => {
                         size='small'
                         id="phone"
                         label="Phone"
+                        type="number"
                         variant="outlined"
                         onChange={(e) => {
                             signUpContext.setPhone(e.target.value);
                         }}
                     />
-                    <p>If you have account <a href="#" >Click here</a>.</p>
+                    <p>If you have account <a href="siginIn.js" >Click here</a>.</p>
                     <Button variant='contained' size="medium" sx={{ bgcolor: '#A7BBC7' }} onClick={(e) => { handleSubmit(e) }} > Sign Up</Button>
 
                 </form>
@@ -278,6 +281,7 @@ const SignUp = () => {
                     <div className='message'>{signUpContext.message}</div>
                 )}
             </div>
+        </div>
         </div>
     );
 };

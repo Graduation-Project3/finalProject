@@ -35,6 +35,7 @@ const LoginProvider = (props) => {
             localStorage.setItem("auth-token", result.data.token);
             console.log(localStorage);
           navigate('/')
+          window.location.reload();
         }
         else {
           setMessage(result.data)

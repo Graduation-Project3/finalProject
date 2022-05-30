@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
-const { log } = require("console");
 let smtpTransport = nodemailer.createTransport({
   
   service: "gmail",
@@ -90,7 +89,7 @@ exports.postSignIn = (req, res) => {
             let token;
             try {
               token = jwt.sign(
-                { userId: user.id, email: user.email },
+                { userId: user.id, email: user.email ,admin:user.admin},
                 'supersecret_dont_share',
                 { expiresIn: '1h' }
               );
@@ -103,7 +102,7 @@ exports.postSignIn = (req, res) => {
           }
 
           else {
-            res.send('not passed');
+            res.status(400).send('not passed');
           }
         }
 
@@ -115,12 +114,7 @@ exports.postSignIn = (req, res) => {
     })
     .catch(err => res.status(400).send(err));
 }
-exports.postLogout = (req, res, next) => {
-  req.session.destroy(err => {
-    console.log(err);
-    res.send({ isAuth: false })
-  });
-};
+
 exports.postIsValid = async (req, res) => {
   try {
     const token = req.header("Authorization").split(' ')[1];;
@@ -149,11 +143,15 @@ exports.postReset = (req, res, next) => {
     const token = buffer.toString('hex');
     User.findOne({ email: req.body.email })
       .then(user => {
-        console.log(user);
-        if (!user) {
-          console.log('not found');
-          res.status(400).send({ found: 'not found' });
-          return ;
+
+     
+        if(!user) {
+          res.status(203).send("this email in not connected to any account");
+          return;
+        }
+        else if (!emailvalidator.validate(req.body.email)) {
+          res.status(202).send("The email not validate");
+          return;
         }
         user.resetToken = token;
         user.resetTokenExpiration = Date.now() + 3600000;

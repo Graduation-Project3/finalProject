@@ -1,61 +1,54 @@
 import './login.css';
 import TextField from '@mui/material/TextField';
 import { Button, createTheme, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { useState, useContext } from 'react';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { useNavigate } from 'react-router-dom';
-
+import { useState } from 'react';
 import Axios from 'axios';
 import { Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import useStyle from './login-style';
-import { SignInContext } from '../../contexts/signIn';
-
-
-
-
-//this is style
-
-// end style
-
-//theme for typograpy
+import ErrorIcon from '@mui/icons-material/Error';
+import CheckIcon from '@mui/icons-material/Check';
+const emailvalidator = require("email-validator");
 const theme = createTheme({
     typography: {
         fontFamily: '"Segoe UI Symbol"',
     }
 })
 
-
-
 const Forget = () => {
-   const [email,setEmail] = useState();
-   const [message,setMessage] = useState('');
-   const forget = (e) =>{
-    Axios.post("/forget", {
-      email: email,
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState('');
+    const emailVali = () => {
+        console.log("VALI FUN", email !== "" && !(emailvalidator.validate(email)))
+        if (email !== "" && !(emailvalidator.validate(email))) {
+            return (<div className='errorMessage emailMsg'><ErrorIcon sx={{ height: 17 }}></ErrorIcon> <span className='msg' style={{ position: 'absolute' }}> Incorrect Email</span></div>)
+        }
+        else if (email === "") {
+            return
+        }
+        else {
+            return (<div className='passMessage emailMsg'><CheckIcon sx={{ height: 17 }}></CheckIcon><span className='msg' style={{ position: 'absolute' }}> Correct Email</span> </div>)
+        }
+    }
+    const forget = (e) => {
+        Axios.post("/forget", {
+            email: email,
 
-  })
-    .then((result) => {
-      
-        console.log(result);
-        setMessage('email sent')
-          
-     
-    })
-    .catch((err) => {
-        console.log(err);
-        setMessage('email not connected to any account')
-    });
+        })
+            .then((result) => {
+
+                console.log(result);
+                setMessage('email sent')
 
 
-}
+            })
+            .catch((err) => {
+                console.log(err);
+                setMessage('email not connected to any account')
+            });
+
+
+    }
     const classes = useStyle();
 
     return <div className={classes.page_login}>
@@ -74,10 +67,10 @@ const Forget = () => {
 
                         {/* email */}
                         <Grid item xs={12} >
-                            <TextField sx={{ width: '80%' }} label="Email" variant="outlined" 
-                            onChange={(e) => {
-                                setEmail(e.target.value);
-                            }} />
+                            <TextField sx={{ width: '80%',marginBottom:'10%' }} label="Email" variant="outlined"
+                                onChange={(e) => {
+                                    setEmail(e.target.value.toLowerCase());
+                                }} />
                         </Grid >
 
                         {/* password and hide password */}
@@ -85,8 +78,9 @@ const Forget = () => {
 
                     </Grid>
 
-                </Box>
 
+                </Box>
+                {emailVali()}
                 <Button variant='contained' size="medium" sx={[{ bgcolor: '#A7BBC7' },
                 { "&:hover": { bgcolor: '#A7BBC7' } }]}
                     type='button'

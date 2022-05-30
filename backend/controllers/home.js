@@ -157,9 +157,9 @@ exports.postPayment =(req,res)=>{
     smtpTransport.sendMail({
       to: verified.email,
       from: 'mazaddjo@gmail.com',
-      subject: 'Password reset',
+      subject: 'asscurance amount',
       html: `
-      <p>an ammount of ${min} was cutted from your credit card </p>
+      <p>an ammount of ${min * 0.1} was cutted from your credit card </p>
       `
     }).then(res => console.log(res))
     .then(response =>{

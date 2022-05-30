@@ -21,15 +21,19 @@ const useStyle = makeStyles(() => {
         //home card styles
         
         cards: {
+            marginTop:'2rem',
             top:'0px',
             right:'0px',
             bottom:'0px',
             left:'0px',
-            //   padding: ' 3% 0',
-            backgroundColor: '#F7F5F2',
+            backgroundColor: '#fffff',
         },
+        cardContent:{
+            backgroundColor: '#F7F5F2',
+          },
         card: {
-            maxWidth: '17rem',
+            width: '17rem',
+            backgroundColor: '#F7F5F2'
         },
         cardContainer: {
             display: 'grid',

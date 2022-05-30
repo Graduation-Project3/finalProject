@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
@@ -34,13 +33,14 @@ function HomeCard(props) {
 
     return (
         <div className={classes.cards} >
-            <div className={show}>
+            <div>
+            <div className={show }>
 
                 {items.map((item, i) => (
                     <Item key={i} {...item} />
                 ))}
             </div >
-
+            </div>
             <div className={classes.cardButton}>
                 <Button size="small" onClick={toggleShow}>
                     {
@@ -48,6 +48,7 @@ function HomeCard(props) {
                     }
                 </Button>
             </div>
+            
 
         </div>
 
@@ -70,14 +71,14 @@ const Item = ({ imageUrl, title, description, _id }) => {
                 alt="green iguana"
 
             />
-            <CardContent>
+            <CardContent className= {classes.cardContent}>
                 <Typography gutterBottom variant="h5" component="div">
                     {title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {description}
                 </Typography>
-                <Link to = {`/product/${_id}`}>
+                <Link to = {`/product/${_id}`} style={{ textDecoration: 'none' ,color:'white'}}>
                     <Button style={{ backgroundColor: '#8D8DAA', color: 'white', margin: '1rem auto', display: 'block' }}>
                     Details
                 </Button>

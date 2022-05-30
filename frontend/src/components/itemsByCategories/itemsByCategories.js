@@ -1,8 +1,7 @@
 import * as React from 'react';
 import axios from "axios";
-import { useState, useContext,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
@@ -10,34 +9,40 @@ import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import useStyle from './styles';
 import Nav from '../home/home-nav';
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 
 function CategoryItem() {
     const location = useLocation();
-    
-  const [items, setItems] = useState([]);
-  const [message, setMessage] = useState("");
-    console.log("location.state.name",location.state.category);
+
+    const [items, setItems] = useState([]);
+    const [message, setMessage] = useState("");
     const classes = useStyle();
     const [show, setShow] = useState(classes.cardContainer);
     useEffect(() => {
         axios
-        .get(`/item/category/${location.state.category}`)
-        .then((result) => {
-          console.log("items",items)
-          setItems(result.data)
-        })
-        .catch((err) => {
-          setMessage("No item found")
-        });
-      }, [location.state.category]);
+            .get(`/item/category/${location.state.category}`)
+            .then((result) => {
+                setItems(result.data)
+                setMessage("")
+                if (result.data.length == 0) {
+                    setMessage(" There is no items to display at the moment")
+                }
+
+            })
+            .catch((err) => {
+                setMessage("No item found")
+            });
+    }, [location.state.category]);
 
     return (
-
+        <>
+<Nav />
         <div className={classes.cards} >
-            <Nav />
+            
+
+
             <div className={show}>
                 {items.map((item, i) => (
                     <Item key={i} {...item} />
@@ -46,8 +51,16 @@ function CategoryItem() {
             <div className={classes.cardButton}>
             </div>
 
-        </div>
+            {message && (
+                <h1 style={{ textAlign: "center" }}>
+                    {message}
+                </h1>
+            )}
 
+
+
+        </div>
+        </>
 
     );
 }
@@ -67,17 +80,17 @@ const Item = ({ imageUrl, title, description, _id }) => {
                 alt="green iguana"
 
             />
-            <CardContent>
+            <CardContent className= {classes.cardContent}>
                 <Typography gutterBottom variant="h5" component="div">
                     {title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {description}
                 </Typography>
-                <Link to = {`/product/${_id}`}>
+                <Link to={`/product/${_id}`} style={{ textDecoration: 'none' ,color:'white'}}>
                     <Button style={{ backgroundColor: '#8D8DAA', color: 'white', margin: '1rem auto', display: 'block' }}>
-                    Details
-                </Button>
+                        Details
+                    </Button>
                 </Link>
             </CardContent>
         </Card>

@@ -24,19 +24,50 @@ import EditUsers from './components/admin/user';
 import CategoryControll from './components/admin/category';
 import EditItem from './components/admin/item';
 import AcceptItem from './components/admin/acceptItems';
+import jwt from 'jwt-decode'
 
 function App() {
   let t = localStorage.getItem("auth-token");
+
+
   const [token, setToken] = useState(t);
   const [userId, setUserId] = useState(false);
-  const [routes, setRoutes] = useState(<Routes>
+  const [admin, setAdmin] = useState(false);
+ 
+  const loggedRoutes = <Routes>
+    <Route exact path='/' element={<Home />} />
+    <Route path='/product/:prodId' element={<Product />} />
+    <Route path='/addItem' element={<AddItem />} />
+    <Route path="*" element={<Navigate to='/' />} />
+    <Route path='/UploadImage' element={<UploadImage />} />
+    <Route path='/category/:category' element={<CategoryItem />} />
+    <Route path='/Search' element={<SearchItem />} />
+    <Route path='/payment' element={<Payment />} />
+  </Routes>;
+  const adminRoutes = <Routes>
+    <Route path='/acceptItems' element={<AcceptItem />} />
+    <Route path='/editUsers' element={<EditUsers />} />
+    <Route path='/editCategory' element={<CategoryControll />} />
+    <Route path='/editItems' element={<EditItem />} />
+    <Route path='/acceptItems' element={<AcceptItem />} />
+    <Route path='/admin' element={<Admin />} />
+    <Route path="*" element={<Navigate to='/admin' />} />
+  </Routes>;
+  const regroute = <Routes>
     <Route exact path='/' element={<Home />} />
     <Route path='/signUp' element={<SignUp />} />
     <Route path='/signIn' element={<Login />} />
-    <Route path='/admin' element={<Admin />} />
-
+    <Route path='/UploadImage' element={<UploadImage />} />
+    <Route path='/product/:prodId' element={<Product />} />
     <Route path="*" element={<Navigate to='/signIn' />} />
-  </Routes>)
+    <Route path='/category/:category' element={<CategoryItem />} />
+    <Route path='/addItem' element={<AddItem />} />
+    <Route path='/Search' element={<SearchItem />} />
+    <Route path='/forget-email' element={<Forget />} />
+    <Route path='/reset/:token' element={<Reset />} />
+
+  </Routes>;
+  const [routes, setRoutes] = useState(regroute);
 
   const login = useCallback((uid, token) => {
     setToken(token);
@@ -46,6 +77,7 @@ function App() {
   const logout = useCallback(() => {
     setToken(null);
     setUserId(null);
+    setAdmin(null);
   }, []);
 
   useEffect(() => {
@@ -53,7 +85,23 @@ function App() {
     if (token === null) {
       localStorage.setItem("auth-token", "");
       token = "";
-      setToken()
+      setToken();
+      setRoutes(regroute);
+    }
+    else if (token) {
+      const user = jwt(token);
+      console.log("jwt(token)",jwt(token));
+      console.log(user.admin);
+      console.log("token",token);
+
+       if (user.admin) {
+        setAdmin(true);
+        setRoutes(adminRoutes);
+      }
+      else {
+        setAdmin(false);
+        setRoutes(loggedRoutes);
+      }
     }
     const config = {
       headers: { Authorization: `Bearer ${token}` }
@@ -83,40 +131,9 @@ function App() {
       }
     }>
 
-      {token ? <Routes>
-        <Route exact path='/' element={<Home />} />
-        <Route path='/product/:prodId' element={<Product />} />
-        <Route path='/addItem' element={<AddItem />} />
-        <Route path="*" element={<Navigate to='/' />} />
-        <Route path='/UploadImage' element={<UploadImage />} />
-        <Route path='/category/:category' element={<CategoryItem />} />
-        <Route path='/Search' element={<SearchItem />} />
-        <Route path='/payment' element={<Payment />} />
-        <Route path='/editUsers' element={<EditUsers />} />
-        <Route path='/editCategory' element={<CategoryControll />} />
-        <Route path='/editItems' element={<EditItem />} />
-        <Route path='/acceptItems' element={<AcceptItem />} />
 
-      </Routes> :
-        <Routes>
-          <Route exact path='/' element={<Home />} />
-          <Route path='/signUp' element={<SignUp />} />
-          <Route path='/signIn' element={<Login />} />
-          <Route path='/UploadImage' element={<UploadImage />} />
-          <Route path='/product/:prodId' element={<Product />} />
-          <Route path="*" element={<Navigate to='/signIn' />} />
-          <Route path='/category/:category' element={<CategoryItem />} />
-          <Route path='/Search' element={<SearchItem />} />
-          <Route path='/forget-email' element={<Forget />} />
-          <Route path='/reset/:token' element={<Reset />} />
-          <Route path='/editUsers' element={<EditUsers />} />
-          <Route path='/editCategory' element={<CategoryControll />} />
-          <Route path='/editItems' element={<EditItem />} />
-          <Route path='/acceptItems' element={<AcceptItem />} />
-          <Route path='/admin' element={<Admin />} />
+      {routes}
 
-        </Routes>
-      }
     </userContext.Provider>
   );
 }
