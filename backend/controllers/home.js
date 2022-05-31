@@ -18,7 +18,7 @@ let smtpTransport = nodemailer.createTransport({
 
 
 exports.getHome = (req,res,next) => {
-    Item.find()
+    Item.find({ready:1})
     .then(products => {
       res.send(
         {
@@ -34,7 +34,6 @@ exports.getProduct = (req,res,next) => {
   const id = req.query.id;
   Item.findById(id)
     .then(product => {
-      console.log(product);
       res.send(
         {
           prod: product
@@ -48,7 +47,7 @@ exports.getProduct = (req,res,next) => {
 exports.getItemByCategory =(req,res)=>{
   const category = req.params.category;
   Item
-    .find({ category : category })
+    .find({ category : category ,ready:1})
     .then(items => {
       res.status(200).send(items)
     })
@@ -60,7 +59,7 @@ exports.getItemByCategory =(req,res)=>{
 exports.getItemByTitle =(req,res)=>{
   const title = req.params.title;
   Item
-    .find({ title : title })
+    .find({ title : title ,ready:1})
     .then(items => {
       res.status(200).send(items)
     })
@@ -78,7 +77,7 @@ exports.postAuction =(req,res)=>{
   const verified = jwt.verify(token,'supersecret_dont_share', );
   let prices = [];
       for (let index = 0; index < 5; index++) {
-        price = price + (price * 0.1);
+        price = price + (price * 0.01);
         console.log(price);
         prices[index] = Math.round(price);
       }
@@ -173,6 +172,8 @@ exports.postPayment =(req,res)=>{
     
   )
   .catch(err => {
+    console.log(err);
+
     res.status(400).send(err);
   });
 };

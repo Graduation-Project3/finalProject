@@ -2,7 +2,7 @@ const Item = require('../models/items')
 
 exports.getAllItem=(req,res)=>{
     console.log("yes");
-    Item.find()
+    Item.find({ready:1})
     .then(Item => {
       res.send(Item)
     })
@@ -21,10 +21,21 @@ exports.deleteItemById=(req,res)=>{
     });
 }
 exports.updateItem = (req, res) => {
-  console.log("000000000000000000000",req.params.id);
+  const today = new Date();
+  const tomorrow = new Date(today)
+  tomorrow.setDate(tomorrow.getDate() + 1)
+  const date = tomorrow.getDate() + "/" + tomorrow.getMonth() + " At " + tomorrow.getHours() + ":" + tomorrow.getMinutes() ;
   const id = req.params.id
-  Item.findOneAndUpdate({ _id: id }, { $inc: { ready: 1 } })
-      .then(result => {
+  Item.updateOne({ _id: id },
+    {
+      $set: {
+        ready: 1,
+        date:date,
+        startDate: today,
+        endDate:tomorrow
+      }
+    })
+    .then(result => {
           res.status(200).send(result);
       })
       .catch(err => {

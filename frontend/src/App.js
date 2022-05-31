@@ -61,7 +61,6 @@ function App() {
     <Route path='/product/:prodId' element={<Product />} />
     <Route path="*" element={<Navigate to='/signIn' />} />
     <Route path='/category/:category' element={<CategoryItem />} />
-    <Route path='/addItem' element={<AddItem />} />
     <Route path='/Search' element={<SearchItem />} />
     <Route path='/forget-email' element={<Forget />} />
     <Route path='/reset/:token' element={<Reset />} />

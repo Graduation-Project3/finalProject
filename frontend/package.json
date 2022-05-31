@@ -20,6 +20,7 @@
     "final-form": "^4.20.7",
     "firebase": "^9.8.1",
     "jwt-decode": "^3.1.2",
+    "material-ui-phone-number": "^3.0.0",
     "payment": "^2.4.6",
     "react": "^17.0.0",
     "react-carousel-minimal": "^1.4.1",

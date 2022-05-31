@@ -6,6 +6,7 @@ import items from './items-provider';
 import Typography from '@mui/material/Typography';
 import { Button } from '@material-ui/core';
 import useStyle from './styles';
+import zIndex from '@mui/material/styles/zIndex';
 
 function Carousell(props) {
     const classes = useStyle();
@@ -31,24 +32,16 @@ function Carousell(props) {
     );
 }
 
-const Item = ({ imageUrl, name, description }) => {
+const Item = ({ imageUrl, description }) => {
     const classes = useStyle();
     return (
 
         <div className={classes.sliderContainer}>
 
-            <img src={imageUrl} className={classes.sliderImage} alt='hi' />
+            <img src={imageUrl} className={classes.sliderImage} alt='hi' style={{height:'350px'}}/>
 
-            <div className={classes.sliderText}>
-                <Typography variant='h5' >{name} </Typography>
+            <div className={classes.sliderText} >
                 <Typography variant='body1' >{description}</Typography>
-            </div>
-            <div className={classes.sliderButtono} style={{
-                position: 'absolute',
-                bottom: ' 10% ',
-                left: '29% ',
-                borderRadius: '2%',
-            }}>
             </div>
         </div>
     );

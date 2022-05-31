@@ -3,7 +3,7 @@ import Nav from "../home/home-nav";
 import Box from '@mui/material/Box';
 import { Button } from "@mui/material";
 import Typography from '@mui/material/Typography';
-import useStyle from '../home/styles';
+import useStyle from './styles';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';

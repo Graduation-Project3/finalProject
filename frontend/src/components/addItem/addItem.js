@@ -91,6 +91,7 @@ const AddItem = () => {
                                     value={categoryTitle}
                                     onChange={(e) => {
                                         setCategoryTitle(e.target.value)
+                                        addItemContext.setCategory(e.target.value)
                                     }}
                                 >
                                     {category.map(val => {
@@ -107,16 +108,7 @@ const AddItem = () => {
                             {/* create Description */}
                             <input type="file" multiple onChange={addItemContext.handleImage} />
                         </Grid>
-                        {/* 
-                        <Grid>
-                           
-                            <div>
-                                <input type="file" id="file" multiple onChange={handleImageChange} />
-                                
-                                <div >{renderPhotos(selectedFiles)}</div>
-                            </div>
-                        </Grid>
-                         */}
+                       
                         <Grid>
                             <Button variant='contained' size="medium" sx={[{ bgcolor: '#A7BBC7' },
                             { "&:hover": { bgcolor: '#A7BBC7' } }]}

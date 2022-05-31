@@ -48,7 +48,7 @@ const LoginProvider = (props) => {
           setMessage("please enter your password");
         }
          else {
-          setMessage("the e-mail or password  ");
+          setMessage("the e-mail or password is not correct ");
         }
       });
 

@@ -22,6 +22,7 @@ function Payment() {
   const onSubmit = (values) => {
     Axios.post('/payment', { product: location.state.product, price: location.state.price, token: token }).then(response => {
       console.log(response);
+      console.log('re');
       navigate(`/product/${location.state.product}`);
      /*  if (response.data.pay) {
 
@@ -30,7 +31,7 @@ function Payment() {
       else {
           navigate('/payment',{state:{product:product._id,price:price,token:token}});
       } */
-  }).catch(err => console.log(err))
+  }).catch(err => console.log("err"))
   navigate(`/signIn`);
   };
 

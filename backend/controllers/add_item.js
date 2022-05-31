@@ -5,7 +5,7 @@ exports.postAddItem = (req, res, next) => {
   const description = req.body.description;
   const imageUrl = req.body.imageUrl;
   const minPrice = req.body.minPrice;
-  const maxPrice = req.body.maxPrice;
+  const category = req.body.category
   let prices = [];
   let price = +minPrice;
   for (let index = 0; index < 5; index++) {
@@ -13,10 +13,10 @@ exports.postAddItem = (req, res, next) => {
     console.log(price);
     prices[index] = Math.round(price);
   }
-  const today = new Date();
-  const tomorrow = new Date(today)
-  tomorrow.setDate(tomorrow.getDate() + 1)
-  const date = tomorrow.getDate() + "/" + tomorrow.getMonth() + " At " + tomorrow.getHours() + ":" + tomorrow.getMinutes() ;
+  // const today = new Date();
+  // const tomorrow = new Date(today)
+  // tomorrow.setDate(tomorrow.getDate() + 1)
+  // const date = tomorrow.getDate() + "/" + tomorrow.getMonth() + " At " + tomorrow.getHours() + ":" + tomorrow.getMinutes() ;
 
   const item = new Item({
     title: title,
@@ -25,10 +25,8 @@ exports.postAddItem = (req, res, next) => {
     minPrice: minPrice,
     maxPrice: 0,
     prices: prices,
-    category: "path",
-    startDate: today,
-    endDate:tomorrow,
-    date: date
+    category: category ,
+    
   })
   item.save()
     .then(result => {

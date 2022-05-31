@@ -80,5 +80,13 @@
 .msg {
     margin-top: 0px;
 }
+.signUpButton{
+    background-color: rgb(0, 0, 0);
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 10px ;
+    color: white;
+    
+}
 
 

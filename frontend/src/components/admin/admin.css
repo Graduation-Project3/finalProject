@@ -108,7 +108,9 @@
   border: 2px solid rgb(0, 0, 0);
 
 }
-
+nav{
+  text-align: center;
+}
 .imageItem {
   width: 200px;
   height: 100px;

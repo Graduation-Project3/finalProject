@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import {storage} from "../components/firebase/firebase";
+import { storage } from "../components/firebase/firebase";
 import { createContext } from "react";
 export const AddItemContext = createContext(' ');
 
 const AddItemProvider = (props) => {
     const [title, setTitle] = useState("");
+    const [category, setCategory] = useState("");
     const [description, setDescription] = useState("");
     const [image, setImage] = useState([]);
     const [message, setMessage] = useState("");
@@ -32,17 +33,17 @@ const AddItemProvider = (props) => {
                 "state_changed",
                 (snapshot) => {
                     const prog = Math.round(
-                      (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                     );
-                  },
-                  (error) => console.log(error),
+                },
+                (error) => console.log(error),
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                         console.log(downloadURL);
                         path.push(downloadURL);
                         setImage(path);
                         console.log(path);
-                        
+
                     }).catch(err => console.log(err));
                 }
             );
@@ -64,6 +65,7 @@ const AddItemProvider = (props) => {
         setMaxPrice,
         setImages,
         setUrls,
+        setCategory,
         handleImage,
         title,
         description,
@@ -76,14 +78,14 @@ const AddItemProvider = (props) => {
     };
 
     function addItem(e) {
-
-        console.log("khkusvccccccccccccccccccccccccccccccccccccccccccccccccccj");
+        console.log('category',category);
         Axios.post("/add_item", {
             title: title,
             description: description,
             imageUrl: image,
             minPrice: minPrice,
-            maxPrice: maxPrice
+            maxPrice: maxPrice,
+            category: category
         })
             .then((result) => {
                 console.log(result);

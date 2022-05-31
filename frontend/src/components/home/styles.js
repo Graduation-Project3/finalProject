@@ -54,6 +54,10 @@ const useStyle = makeStyles(() => {
       gridColumn:'7/10',
       gridRow:'1',
     },
+    addItem:{
+      gridColumn:'11',
+      gridRow:'1',
+    },
     navButton: {
       gridColumn:'12',
       gridRow:'1',
@@ -122,6 +126,7 @@ const useStyle = makeStyles(() => {
     },
     cardContent:{
       backgroundColor: '#F7F5F2',
+      height:'100%'
     },
     cardContainer: {
       display: 'grid',
@@ -252,7 +257,11 @@ const useStyle = makeStyles(() => {
         height: '20rem',
       },
       sliderImage:{
-        height:'18rem'
+        height:'18rem',
+        zIndex :'-2',
+      },
+      sliderText:{
+        zIndex :'1',
       },
       cardContainer: {
         gridTemplateColumns: 'auto auto',

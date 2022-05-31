@@ -17,8 +17,9 @@ const useStyle = makeStyles( () => {
     page_login:
     {
         display: 'grid',
-        margin: '5% auto',
-        width: '40%'
+        margin: '12% auto ',
+        width: '40%',
+        
     },
     content_login : 
     {

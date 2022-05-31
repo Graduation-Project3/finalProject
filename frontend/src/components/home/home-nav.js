@@ -51,11 +51,13 @@ function Nav(props) {
   const logout = () => {
     localStorage.setItem("auth-token", "");
     window.location.reload();
-  }
+  };
   const redirect = () => {
     navigate('/signIn')
-  }
-
+  };
+  const addItem = () =>{
+    navigate('/addItem');
+  };
 
 
 
@@ -113,6 +115,11 @@ function Nav(props) {
               }}
             />
           </Box>
+          
+          {token && (
+                        <Box className={classes.addItem}> <Button variant="contained" onClick={addItem}>Add Item</Button>
+                        </Box>
+                    )}
           <Box className={classes.navButton}>
             {token ? <Button variant="contained" onClick={logout}><Link to="/" style={{ textDecoration: 'none' ,color:'white'}}>Sign Out</Link></Button> : <Button variant="contained" onClick={redirect}>Sign In</Button>}
           </Box>

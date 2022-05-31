@@ -94,7 +94,9 @@ const Login = () => {
     const redirect = () => {
         navigate('/signUp')
     }
-
+    const forget = () => {
+        navigate('/forget-email');
+    };
     const classes = useStyle();
 
      return(
@@ -157,7 +159,7 @@ const Login = () => {
                     </Grid>
 
                 </Box>
-                <p><a href='#' className={classes.link}>Forget password?</a></p>
+                <p><a href='#' className={classes.link} onClick={forget} >Forget password?</a></p>
 
                 <Button variant='contained' size="medium" sx={[{ bgcolor: '#A7BBC7' },
                 { "&:hover": { bgcolor: '#A7BBC7' } }]}

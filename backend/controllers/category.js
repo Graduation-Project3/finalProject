@@ -13,7 +13,6 @@ exports.addCategory = (req, res) => {
             console.log(err);
         });
 }
-
 exports.getAllCategory = (req, res) => {
     Category.find()
         .then(result => {

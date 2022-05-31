@@ -24,7 +24,6 @@ const itemsSchema = new Schema({
      },
      category:{
         type:String,
-        required:true
     },
     prices:{
         type:[Number],
@@ -45,7 +44,7 @@ const itemsSchema = new Schema({
         type:Number,
         required:true ,
         default:1
-    }
+    },
 
 });
 
