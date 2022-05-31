@@ -43,7 +43,7 @@ const itemsSchema = new Schema({
     ready:{
         type:Number,
         required:true ,
-        default:1
+        default:0
     },
 
 });

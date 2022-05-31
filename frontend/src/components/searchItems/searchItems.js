@@ -19,6 +19,7 @@ function SearchItem() {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
+        console.log(location.state.title);
         axios
             .get(`/item/title/${location.state.title}`)
             .then((result) => {
