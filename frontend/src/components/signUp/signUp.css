@@ -1,5 +1,8 @@
 .mbody{
-    background-image: url(./Sho_958x481_1198x601_1198x601.png);
+    background-image: url(./body.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: antiquewhite;
 }
 .title{
     margin: auto; 

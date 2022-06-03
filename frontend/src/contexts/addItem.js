@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import Axios from "axios";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../components/firebase/firebase";
@@ -16,14 +16,8 @@ const AddItemProvider = (props) => {
     const [images, setImages] = useState([]);
     const [urls, setUrls] = useState([]);
     let path = [];
-
-    const handleImage = (e) => {
-        for (let i = 0; i < e.target.files.length; i++) {
-            const newImage = e.target.files[i];
-            newImage["id"] = Math.random();
-            setImages((prevState) => [...prevState, newImage]);
-        }
-        const promises = [];
+    useEffect(() => {
+        console.log("images",images);
         images.map((file) => {
             if (!file) return;
             const sotrageRef = ref(storage, `files/${file.name}`);
@@ -48,6 +42,17 @@ const AddItemProvider = (props) => {
                 }
             );
         });
+      }, [images])
+
+
+    const handleImage = (e) => {
+        for (let i = 0; i < e.target.files.length; i++) {
+            const newImage = e.target.files[i];
+            newImage["id"] = Math.random();
+            setImages((prevState) => [...prevState, newImage]);
+        }
+        const promises = [];
+       
 
         /*  Promise.all(promises)
            .then(() => alert("All images uploaded"))
@@ -91,6 +96,7 @@ const AddItemProvider = (props) => {
                 console.log(result);
                 if (result.status === 201) {
                     setMessage("Valid Add Item");
+
                 }
                 else {
                     setMessage(result.data)

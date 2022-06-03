@@ -1,6 +1,6 @@
 import { useContext,useEffect, useState } from 'react';
 import axios from 'axios';
-import useStyle from "../signIn/login-style";
+import useStyle from "./login-style";
 import './addItem.css';
 import { TextField, Box, Grid, Button, Typography, Input } from '@mui/material';
 import { AddItemContext } from '../../contexts/addItem';
@@ -12,9 +12,10 @@ import Select from '@mui/material/Select';
 
 
 const AddItem = () => {
-   
     const [category, setCategory] = useState([]);
     const [categoryTitle, setCategoryTitle] = useState([]);
+    document.body.classList.add('mbody');
+
     useEffect(() => {
         axios.get(`/getAllCategory`)
           .then((result) => {
@@ -39,8 +40,7 @@ const AddItem = () => {
         <div className={classes.content_login}>
 
             <form className={classes.form}>
-                <Box item xs={12}>
-                    <Grid >
+                    
                         <Grid item xs={12}>
                             {/* typography */}
                             <Typography variant='h4' className={classes.typo} >
@@ -50,8 +50,7 @@ const AddItem = () => {
                         <Grid>
                             {/* create Title */}
                             <TextField
-                                required
-                                label="Title"
+                                label="Please Enter Title Here"
                                 className={classes.margindown}
                                 onChange={(e) => {
                                     addItemContext.setTitle(e.target.value.toLowerCase());
@@ -82,7 +81,10 @@ const AddItem = () => {
                                 onChange={(e) => {
                                     addItemContext.setMinPrice(e.target.value);
                                 }} />
-                            <FormControl sx={{  minWidth: 210 }}>
+
+                        </Grid>
+                        <Grid>
+                        <FormControl sx={{  minWidth: 210 }}>
                                 <InputLabel id="demo-simple-select-helper-label">Category</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-helper-label"
@@ -102,7 +104,6 @@ const AddItem = () => {
 
                                 </Select>
                             </FormControl>
-
                         </Grid>
                         <Grid>
                             {/* create Description */}
@@ -117,8 +118,8 @@ const AddItem = () => {
                                 Add Item
                             </Button>
                         </Grid>
-                    </Grid>
-                </Box>
+                    
+                
             </form>
         </div>
     </div>

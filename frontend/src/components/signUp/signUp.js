@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import "./signUp.css";
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -13,13 +12,9 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { SignUpContext } from '../../contexts/signUp';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckIcon from '@mui/icons-material/Check';
-
 import MuiPhoneNumber from 'material-ui-phone-number';
-import { Box } from '@mui/system';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-
-
 const emailvalidator = require("email-validator");
 
 

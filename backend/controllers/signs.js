@@ -6,14 +6,14 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
 let smtpTransport = nodemailer.createTransport({
-  
+
   service: "gmail",
-  auth:{ 
-    user:"mazaddjo@gmail.com",
-    pass:"ehabashrafqadi2000"
+  auth: {
+    user: "mazaddjo@gmail.com",
+    pass: "ehabehab"
   },
-  tls:{
-    rejectUnauthorized:false
+  tls: {
+    rejectUnauthorized: false
   }
 
 });
@@ -89,7 +89,7 @@ exports.postSignIn = (req, res) => {
             let token;
             try {
               token = jwt.sign(
-                { userId: user.id, email: user.email ,admin:user.admin},
+                { userId: user.id, email: user.email, admin: user.admin },
                 'supersecret_dont_share',
                 { expiresIn: '1h' }
               );
@@ -100,12 +100,10 @@ exports.postSignIn = (req, res) => {
               console.log("failde");
             }
           }
-
           else {
             res.status(400).send('not passed');
           }
         }
-
         )
         .catch(err => {
           res.status(401).send(err);
@@ -143,14 +141,10 @@ exports.postReset = (req, res, next) => {
     const token = buffer.toString('hex');
     User.findOne({ email: req.body.email })
       .then(user => {
-
-     
-        if(!user) {
-          res.status(203).send("this email in not connected to any account");
-          return;
-        }
-        else if (!emailvalidator.validate(req.body.email)) {
-          res.status(202).send("The email not validate");
+        console.log("user", user);
+        if (!user) {
+          console.log("notUser");
+          res.status(403).send("this email in not connected to any account");
           return;
         }
         user.resetToken = token;
@@ -158,7 +152,8 @@ exports.postReset = (req, res, next) => {
         return user.save();
       })
       .then(result => {
-        if (result){
+        console.log("result",result);
+        if (result) {
           smtpTransport.sendMail({
             to: req.body.email,
             from: 'mazaddjo@gmail.com',
@@ -168,18 +163,18 @@ exports.postReset = (req, res, next) => {
             <p>Click this <a href="http://localhost:3000/reset/${token}">link</a> to set a new password.</p>
             `
           })
-          .then(resp => {
-            console.log(resp)
-            res.status(200).send({ found: 'found' })
-          })
-           
+            .then(resp => {
+              console.log(resp)
+              res.status(200).send({ found: 'found' })
+            })
+
         }
-        
+
       })
       .catch(err => {
         console.log(err);
       });
-  }); 
+  });
 };
 
 
@@ -187,15 +182,15 @@ exports.getNewPassword = (req, res, next) => {
   const token = req.query.id;
 
   User.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } })
-  
+
     .then(user => {
       console.log(user);
-      if(!user){
+      if (!user) {
         res.status(400).send('not Valid')
         return
       }
-      else{
-        res.send({id:user._id});
+      else {
+        res.send({ id: user._id });
       }
     })
     .catch(err => {
@@ -211,7 +206,7 @@ exports.postNewPassword = (req, res, next) => {
 
   User.findOne({
     resetToken: passwordToken,
-    resetTokenExpiration: { $gt: Date.now() }, 
+    resetTokenExpiration: { $gt: Date.now() },
     _id: userId
   })
     .then(user => {
@@ -227,7 +222,7 @@ exports.postNewPassword = (req, res, next) => {
     .then(result => {
       console.log(result);
     })
-    .catch(err => { 
+    .catch(err => {
       console.log(err);
     });
 };

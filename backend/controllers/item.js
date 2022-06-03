@@ -24,7 +24,7 @@ exports.updateItem = (req, res) => {
   const today = new Date();
   const tomorrow = new Date(today)
   tomorrow.setDate(tomorrow.getDate() + 1)
-  const date = tomorrow.getDate() + "/" + tomorrow.getMonth() + " At " + tomorrow.getHours() + ":" + tomorrow.getMinutes() ;
+  const date = tomorrow.getDate() + "/" + (tomorrow.getMonth()+1) + " At " + tomorrow.getHours() + ":" + tomorrow.getMinutes() ;
   const id = req.params.id
   Item.updateOne({ _id: id },
     {
