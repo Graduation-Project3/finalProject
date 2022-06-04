@@ -21,7 +21,7 @@ let smtpTransport = nodemailer.createTransport({
 
 
 exports.postSignUp = (req, res, next) => {
-  const { firstName, lastName, city, location, email, password, confirmPassword, phone } = req.body;
+  const { firstName, lastName, country, location, email, password, confirmPassword, phone } = req.body;
   User.findOne({ email: email })
     .then(userDoc => {
       if (userDoc) {
@@ -43,7 +43,7 @@ exports.postSignUp = (req, res, next) => {
           const user = new User({
             firstName: firstName,
             lastName: lastName,
-            city: city,
+            country: country,
             location: location,
             email: email,
             password: hashedPassword,

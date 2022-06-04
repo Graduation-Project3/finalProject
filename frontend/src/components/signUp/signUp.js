@@ -13,14 +13,12 @@ import { SignUpContext } from '../../contexts/signUp';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckIcon from '@mui/icons-material/Check';
 import MuiPhoneNumber from 'material-ui-phone-number';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 const emailvalidator = require("email-validator");
 
 
 const SignUp = () => {
     const signUpContext = useContext(SignUpContext);
-    document.body.classList.add('mbody');
+    document.body.classList.add('mUp');
     const [values, setValues] = React.useState({
         amount: '',
         password: '',
@@ -175,6 +173,7 @@ const SignUp = () => {
                         <TextField
                             size='small'
                             id="email"
+                            required
                             label="Email Address"
                             name="email"
                             autoComplete="email"
@@ -187,10 +186,32 @@ const SignUp = () => {
                         {emailVali()}
 
                         <Grid container spacing={2}>
+                            {/* Location */}
+                            <Grid item xs={12} sm={6}>
+                                <select name="city"
+                                label="Address"
+                                className='city' 
+                                required
+                                onChange={(e) => {
+                                    signUpContext.setCountry(e.target.value);
+                                }}
+                               >
+                                    <option value="">city</option>
+                                    <option value="Amman">Amman</option>
+                                    <option value="Zarqa">Zarqa</option>
+                                    <option value="Irbid">Irbid</option>
+                                    <option value="al-Mafraq">al-Mafraq</option>
+                                    <option value="As-Salt">As-Salt</option>
+                                    <option value="Mafraq">Madaba</option>
+                                    <option value="Jerash">Jerash</option>
+                                    <option value="Ma'an">Ma'an</option>
+                                </select>
+                            </Grid>
 
                             {/* country */}
                             <Grid item xs={12} sm={6}>
                                 <TextField
+                                required
                                     size='small'
                                     className='txt'
                                     autoComplete="country"
@@ -198,60 +219,25 @@ const SignUp = () => {
                                     variant="outlined"
                                     fullWidth
                                     id="country"
-                                    label="Country"
-
-                                />
-
-                            </Grid>
-
-                            {/* Location */}
-                            {/* <Grid item xs={12} sm={6}>
-                                <TextField
-                                    size='small'
-                                    variant="outlined"
-                                    fullWidth
-                                    id="City"
-                                    label="City"
-                                    name="City"
-                                    autoComplete="location"
+                                    label="Address"
                                     onChange={(e) => {
                                         signUpContext.setLocation(e.target.value);
                                     }}
+
                                 />
-                            </Grid> */}
-                            <Grid item xs={12} sm={6}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-helper-label" shrink='true' style={{ margin: "0 0 150px 12px" }} >City</InputLabel>
-                                    <Select
-                                        size='small'
-                                        labelId="demo-simple-select-helper-label"
-                                        id="demo-simple-helper-select"
-                                        //value={age}
-                                        label="City"
-                                    // onChange={handleChange}
-                                    >
-                                        <MenuItem value={10}>Amman</MenuItem>
-                                        <MenuItem value={20}>Zarqa</MenuItem>
-                                        <MenuItem value={30}>Irbid</MenuItem>
-                                        <MenuItem value={40}>Mafraq</MenuItem>
-                                        <MenuItem value={50}>As-Salt</MenuItem>
-                                        <MenuItem value={60}>Madaba</MenuItem>
-                                        <MenuItem value={70}>al-Mafraq</MenuItem>
-                                        <MenuItem value={80}>Jerash</MenuItem>
-                                        <MenuItem value={90}>Ma'an</MenuItem>
-                                        <MenuItem value={100}>Tafila</MenuItem>
-                                        <MenuItem value={110}>Karak</MenuItem>
-                                    </Select>
-                                </FormControl>
+
                             </Grid>
+
+
                         </Grid>
                         <Grid container spacing={2}>
 
                             {/* Password */}
                             <Grid item xs={12} sm={6}>
                                 <FormControl size='small' className='txt' variant="outlined">
-                                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                                    <InputLabel htmlFor="outlined-adornment-password" >Password</InputLabel>
                                     <OutlinedInput
+                                    required
                                         id="outlined-adornment-password"
                                         type={values.showPassword ? 'text' : 'password'}
                                         value={values.password}
@@ -282,6 +268,7 @@ const SignUp = () => {
                                 <FormControl size='small' className='txt' variant="outlined">
                                     <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
                                     <OutlinedInput
+                                    required
                                         id="outlined-adornment-password"
                                         size='small'
                                         type={values1.showPassword1 ? 'text' : 'password'}
@@ -312,23 +299,13 @@ const SignUp = () => {
 
 
                         {/* Phone */}
-                        {/* 
-                        <TextField
-
-                            // type={signUpContext.phone ?'text' : 'number'}
-                            size='small'
-                            id="phone"
-                            label="Phone"
-                            type="number"
-                            variant="outlined"
-                            onChange={(e) => {
-                                signUpContext.setPhone(e.target.value);
-                            }}
-                        /> */}
                         <MuiPhoneNumber
+                        
+                        inputProps={{ maxLength: 13 }}
                             defaultCountry='jo'
                             onlyCountries={["jo"]}
-
+                            
+                            required
 
                             onChange={(e) => {
                                 if (e.length > 13) {

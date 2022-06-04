@@ -68,16 +68,35 @@ exports.getItemByTitle =(req,res)=>{
     });
 
 };
+
+///////////////////////////// postAuction ////////////////////////////////////////////
 exports.postAuction =(req,res)=>{
   const id = req.body.product._id;
   const currentPrice = req.body.price;
   let price = currentPrice;
   const token = req.body.token;
+  let percent;
   let pay =false;
   const verified = jwt.verify(token,'supersecret_dont_share', );
   let prices = [];
+  if(price < 50 ){
+    percent = 0.3;
+  }
+  if( price < 100 && price >50){
+    percent = 0.25;
+  }
+  if( price > 100 && price < 1000){
+    percent = 0.10;
+  }
+  if( price > 1000 && price < 10000){
+    percent = 0.05;
+  }
+  if( price > 10000 ){
+    percent = 0.01;
+  }
       for (let index = 0; index < 5; index++) {
-        price = price + (price * 0.01);
+       
+        price = price + (price * percent);
         console.log(price);
         prices[index] = Math.round(price);
       }
@@ -103,8 +122,6 @@ exports.postAuction =(req,res)=>{
       product.maxPrice = currentPrice;
       
     }
-    
-  
     return product.save();
   }).then(prod =>
     res.send(
@@ -119,6 +136,8 @@ exports.postAuction =(req,res)=>{
     console.log(err);
   });
 };
+
+
 exports.postPayment =(req,res)=>{
   const id = req.body.product;
   const currentPrice = req.body.price;
@@ -141,39 +160,82 @@ exports.postPayment =(req,res)=>{
   Item.findById(id)
   .then(product => {
     let h = product.history;
-
+      console.log('hi');
       h = movement;
       product.history = h;
       newPrices = prices;
       min = product.minPrice;
       product.prices = newPrices;
-      product.maxPrice = currentPrice;
-      
-    
-  
     return product.save();
   }).then(prod =>
-    smtpTransport.sendMail({
-      to: verified.email,
-      from: 'mazaddjo@gmail.com',
-      subject: 'asscurance amount',
-      html: `
-      <p>an ammount of ${min * 0.1} was cutted from your credit card </p>
-      `
-    }).then(res => console.log(res))
-    .then(response =>{
-      res.send(
-        {
-          prod: prod,
-          price:currentPrice,
-        }
-      )
-    })
-    
-  )
+    res.send(
+      {
+        prod: prod,
+        price:currentPrice,
+      }))
   .catch(err => {
     console.log(err);
 
     res.status(400).send(err);
   });
 };
+
+
+// exports.postPayment =(req,res)=>{
+//   const id = req.body.product;
+//   const currentPrice = req.body.price;
+//   let price = currentPrice;
+//   let min ;
+//   const token = req.body.token;
+  
+//   const verified = jwt.verify(token,'supersecret_dont_share', );
+//   let prices = [];
+//       for (let index = 0; index < 5; index++) {
+//         price = price + (price * 0.1);
+//         console.log(price);
+//         prices[index] = Math.round(price);
+//       }
+//   const movement = {
+//     userId:verified.userId,
+//     email:verified.email,
+//     price:currentPrice
+//   };
+//   Item.findById(id)
+//   .then(product => {
+//     let h = product.history;
+
+//       h = movement;
+//       product.history = h;
+//       newPrices = prices;
+//       min = product.minPrice;
+//       product.prices = newPrices;
+//       product.maxPrice = currentPrice;
+      
+    
+  
+//     return product.save();
+//   }).then(prod =>
+//     smtpTransport.sendMail({
+//       to: verified.email,
+//       from: 'mazaddjo@gmail.com',
+//       subject: 'asscurance amount',
+//       html: `
+//       <p>an ammount of ${min * 0.1} was cutted from your credit card </p>
+//       `
+//     }).then(res => console.log(res))
+//     .then(response =>{
+//       res.send(
+//         {
+//           prod: prod,
+//           price:currentPrice,
+//         }
+//       )
+//     })
+    
+//   )
+//   .catch(err => {
+//     console.log(err);
+
+//     res.status(400).send(err);
+//   });
+// };

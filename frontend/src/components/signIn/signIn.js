@@ -37,7 +37,7 @@ const theme = createTheme({
 const Login = () => {
     const signInContext = useContext(SignInContext);
     const navigate = useNavigate();
-    document.body.classList.add('mbody');
+    document.body.classList.add('mb');
     ///Email validate
     const emailVali = () => {
         if (signInContext.email !== "" && !(emailvalidator.validate(signInContext.email))) {

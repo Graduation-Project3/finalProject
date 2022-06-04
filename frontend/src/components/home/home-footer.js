@@ -16,7 +16,7 @@ function Footer() {
             </div>
             <div className={classes.aboutUs}>
                 <Typography variant='h6' marginBottom={2} >Contact Us</Typography>
-                <Typography variant='subtitle1'>Mobile Number : +962787357147</Typography>
+                <Typography variant='subtitle1'>Mobile Number : +962 79999 6744</Typography>
                 <Typography>E-Mail : mazaddjo@gmail.com</Typography>
             </div>
         </footer>

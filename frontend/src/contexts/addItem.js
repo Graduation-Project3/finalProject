@@ -1,11 +1,17 @@
 import React, { useState ,useEffect} from "react";
 import Axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../components/firebase/firebase";
 import { createContext } from "react";
 export const AddItemContext = createContext(' ');
 
+
+   
+
 const AddItemProvider = (props) => {
+    const navigate = useNavigate();
+   
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("");
     const [description, setDescription] = useState("");
@@ -52,11 +58,6 @@ const AddItemProvider = (props) => {
             setImages((prevState) => [...prevState, newImage]);
         }
         const promises = [];
-       
-
-        /*  Promise.all(promises)
-           .then(() => alert("All images uploaded"))
-           .catch((err) => console.log(err)); */
     };
 
 
@@ -95,8 +96,9 @@ const AddItemProvider = (props) => {
             .then((result) => {
                 console.log(result);
                 if (result.status === 201) {
-                    setMessage("Valid Add Item");
-
+                    window.location.reload();
+                    navigate(`/`);
+                   
                 }
                 else {
                     setMessage(result.data)

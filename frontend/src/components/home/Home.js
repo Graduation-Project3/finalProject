@@ -12,24 +12,18 @@ import Axios from 'axios';
 
 function Home() {
     const location = useLocation();
+    
     const [all, setAll] = useState([]);
     useEffect(() => {
         Axios.get('/home').then(response => {
-            setAll(response.data.prods);
-         /*    if (location.state.isAuth) {
-                console.log(response.data.isAuth);
-            }
-            else{
-                setLogged(false)
-            }
-             */
+            setAll(response.data.prods.reverse());
+            
         }
         )
     },[] );
     return (
 
         <Fragment>
-
             <Nav />
             <Slider />
             <HomeCard items={all} />

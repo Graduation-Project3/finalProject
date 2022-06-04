@@ -33,7 +33,7 @@ const useStyle = makeStyles(() => {
             borderRadius: ' 10px',
             height:'110%',
             marginTop:'auto',
-            marginLeft:'auto'
+            marginLeft:'50px'
         },
         form: {
             width: '50%',
