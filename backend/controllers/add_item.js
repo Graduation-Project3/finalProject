@@ -29,11 +29,7 @@ exports.postAddItem = (req, res, next) => {
     console.log(price);
     prices[index] = Math.round(price);
   }
-  // const today = new Date();
-  // const tomorrow = new Date(today)
-  // tomorrow.setDate(tomorrow.getDate() + 1)
-  // const date = tomorrow.getDate() + "/" + tomorrow.getMonth() + " At " + tomorrow.getHours() + ":" + tomorrow.getMinutes() ;
-
+  
   const item = new Item({
     title: title,
     description: description,
