@@ -118,7 +118,7 @@ exports.postIsValid = async (req, res) => {
     const token = req.header("Authorization").split(' ')[1];;
     console.log(token);
     if (!token) return res.json({ token: false });
-    const verified = jwt.verify(token, 'supersecret_dont_share',);
+    const verified = jwt.verify(token, 'supersecret',);
     console.log(verified);
     if (!verified) return res.json({ token: false });
     const user = await User.findById(verified.userId);
